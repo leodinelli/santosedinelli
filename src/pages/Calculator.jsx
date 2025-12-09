@@ -32,23 +32,23 @@ const Calculator = () => {
       return;
     }
 
-    // Cálculo base por área
+  
     const area = parseFloat(length) * parseFloat(width);
-    let baseBTU = area * 600; // 600 BTU por m²
+    let baseBTU = area * 600; 
 
-    // Ajuste por pé direito
+    
     const heightFactor = parseFloat(height) > 2.7 ? 1.1 : 1;
     baseBTU *= heightFactor;
 
-    // Ajuste por número de pessoas
+    
     const peopleCount = parseInt(people);
     baseBTU += (peopleCount - 1) * 600;
 
-    // Ajuste por janelas
+    
     const windowCount = parseInt(windows);
     baseBTU += windowCount * 600;
 
-    // Ajuste por exposição solar
+    
     const sunFactors = {
       low: 1,
       medium: 1.1,
@@ -56,11 +56,11 @@ const Calculator = () => {
     };
     baseBTU *= sunFactors[sunExposure];
 
-    // Ajuste por eletrodomésticos
+   
     const applianceCount = parseInt(appliances);
     baseBTU += applianceCount * 300;
 
-    // Ajuste por tipo de ambiente
+    
     const roomFactors = {
       bedroom: 1,
       living: 1.1,
@@ -69,9 +69,21 @@ const Calculator = () => {
     };
     baseBTU *= roomFactors[roomType];
 
-    // Arredondar para valores padrão de BTU
+    
     const standardBTUs = [9000, 12000, 18000, 24000, 30000, 36000, 48000, 60000];
     const recommendedBTU = standardBTUs.find(btu => btu >= baseBTU) || 60000;
+
+    
+    const priceTable = {
+      9000: 1750,   
+      12000: 2150,  
+      18000: 2600,  
+      24000: 3300, 
+      30000: 4000,  
+      36000: 4850,  
+      48000: 6000,  
+      60000: 7500   
+    };
 
     setResult({
       area,
@@ -80,12 +92,12 @@ const Calculator = () => {
       efficiency: recommendedBTU <= baseBTU * 1.2 ? 'Ideal' : 'Superdimensionado'
     });
 
-    // Gerar recomendações de produtos (simulado)
+    
     const productRecommendations = [
       {
         name: `Ar Condicionado Split ${recommendedBTU.toLocaleString()} BTUs`,
         btus: recommendedBTU,
-        price: recommendedBTU * 0.2,
+        price: priceTable[recommendedBTU] || recommendedBTU * 0.2,
         efficiency: 'A',
         type: 'Inverter'
       }

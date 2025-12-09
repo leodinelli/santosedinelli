@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Clock, MapPin, Phone, CheckCircle, Star } from 'lucide-react';
+import { Clock, MapPin, Phone, CheckCircle, Star, X } from 'lucide-react';
 import { services, serviceAreas, workingHours } from '../data/servicesData';
 
 const Services = () => {
@@ -30,10 +30,12 @@ const Services = () => {
             <span className="text-gray-600">Duração:</span>
             <div className="font-semibold">{service.duration}</div>
           </div>
-          <div>
-            <span className="text-gray-600">Garantia:</span>
-            <div className="font-semibold">{service.warranty}</div>
-          </div>
+          {service.warranty && (
+            <div>
+              <span className="text-gray-600">Garantia:</span>
+              <div className="font-semibold">{service.warranty}</div>
+            </div>
+          )}
         </div>
 
         <button
@@ -50,23 +52,24 @@ const Services = () => {
     if (!service) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center">
-                <div className="text-4xl mr-4">{service.icon}</div>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{service.title}</h2>
-                  <p className="text-gray-600">{service.description}</p>
-                </div>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50" onClick={onClose}>
+        <div className="bg-white rounded-xl max-w-4xl w-full max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center z-10">
+            <h2 className="text-lg sm:text-2xl font-bold text-gray-900 pr-2">{service.title}</h2>
+            <button
+              onClick={onClose}
+              className="flex-shrink-0 w-10 h-10 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700"
+              aria-label="Fechar"
+            >
+              <X className="h-6 w-6 sm:h-5 sm:w-5" />
+            </button>
+          </div>
+          <div className="p-4 sm:p-6">
+            <div className="flex items-center mb-4 sm:mb-6">
+              <div className="text-3xl sm:text-4xl mr-3 sm:mr-4">{service.icon}</div>
+              <div>
+                <p className="text-sm sm:text-base text-gray-600">{service.description}</p>
               </div>
-              <button
-                onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 text-2xl"
-              >
-                ×
-              </button>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -103,10 +106,12 @@ const Services = () => {
                 <span className="text-gray-600">Duração do serviço:</span>
                 <div className="font-semibold">{service.duration}</div>
               </div>
-              <div>
-                <span className="text-gray-600">Garantia:</span>
-                <div className="font-semibold">{service.warranty}</div>
-              </div>
+              {service.warranty && (
+                <div>
+                  <span className="text-gray-600">Garantia:</span>
+                  <div className="font-semibold">{service.warranty}</div>
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-6"> 
@@ -172,9 +177,9 @@ const Services = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {serviceAreas.map((area, index) => (
-              <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-center p-4 bg-gray-50 rounded-lg">
                 <MapPin className="h-5 w-5 text-blue-600 mr-3" />
                 <span className="text-gray-700">{area}</span>
               </div>
@@ -192,7 +197,7 @@ const Services = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm text-center">
               <Clock className="h-8 w-8 text-blue-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Segunda a Sexta</h3>
@@ -204,14 +209,9 @@ const Services = () => {
               <p className="text-gray-600">8h às 14h</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-              <Clock className="h-8 w-8 text-blue-600 mx-auto mb-3" />
+              <Clock className="h-8 w-8 text-gray-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Domingo</h3>
-              <p className="text-gray-600">Emergências</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-              <Clock className="h-8 w-8 text-red-600 mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Emergência</h3>
-              <p className="text-gray-600">24h Comercial</p>
+              <p className="text-gray-600">Fechado</p>
             </div>
           </div>
         </div>

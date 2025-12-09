@@ -12,12 +12,12 @@ export const services = [
       'Limpeza do local após o serviço'
     ],
     pricing: [
-      { type: 'Split até 12.000 BTUs', price: '800,90*' },
-      { type: 'Split 18.000 a 24.000 BTUs', price: '1000,80*' },
+      { type: 'Split até 12.000 BTUs', price: 'A partir de 800,90' },
+      { type: 'Split 18.000 a 24.000 BTUs', price: 'A partir de 1000,80' },
       { type: 'Cassete até 36.000 BTUs', price: 'Valor a combinar' },
       { type: 'Multi Split', price: 'Valor a combinar' }
     ],
-    duration: '2-4 horas',
+    duration: '4-6 horas',
     warranty: 'A combinar'
   },
   {
@@ -30,7 +30,7 @@ export const services = [
       'Verificação do gás refrigerante',
       'Teste de funcionamento',
       'Limpeza da serpentina',
-      'Verificação elétrica completa'
+      'Limpeza do Rotor do ventilador'
     ],
     pricing: [
       { type: 'Split residencial', price: 'R$ 220,00' },
@@ -39,7 +39,7 @@ export const services = [
       { type: 'Plano anual (4 visitas)', price: 'R$ 400,00' }
     ],
     duration: '1-2 horas',
-    warranty: '3 meses'
+    warranty: null
   },
   {
     id: 'assistencia',
@@ -76,30 +76,24 @@ export const services = [
     ],
     pricing: [
       { type: 'Split residencial', price: 'R$ 220,00' },
-      { type: 'Cassete comercial', price: 'R$ 150,00' },
+      { type: 'Cassete comercial', price: 'R$ 280,00' },
       { type: 'Multi Split', price: 'R$ 150,00 por evap.' },
       { type: 'Pacote família (3 splits)', price: 'R$ 500,00' }
     ],
     duration: '2-3 horas',
-    warranty: '3 meses'
+    warranty: null
   }
 ];
 
 export const serviceAreas = [
   'São Paulo - Capital',
   'Grande São Paulo',
-  'ABC Paulista',
-  'Guarulhos',
-  'Osasco',
-  'Campinas',
-  'Santos',
-  'São José dos Campos'
+  'ABC Paulista'
 ];
 
 export const workingHours = {
   weekdays: 'Segunda a Sexta: 8h às 18h',
   saturday: 'Sábado: 8h às 14h',
-  sunday: 'Domingo: Emergências',
-  emergency: '24h para emergências comerciais'
+  sunday: 'Domingo: Fechado'
 };
 

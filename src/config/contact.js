@@ -10,7 +10,7 @@ export const contactConfig = {
   },
 
   workingHours: {
-    weekdays: '09:00 - 17:00',
+    weekdays: '08:00 - 18:00',
     saturday: '08:00 - 14:00',
     sunday: 'Fechado'
   }

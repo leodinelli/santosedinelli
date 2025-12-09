@@ -96,7 +96,7 @@ Mensagem enviada através do site`;
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold text-gray-900">Telefone</h3>
                   <p className="text-gray-600">{contactConfig.phoneDisplay}</p>
-                  <p className="text-sm text-gray-500">Segunda a Sexta, 9h às 17h</p>
+                  <p className="text-sm text-gray-500">Segunda a Sexta, 8h às 18h</p>
                 </div>
               </div>
 

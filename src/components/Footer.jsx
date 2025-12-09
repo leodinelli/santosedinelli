@@ -20,15 +20,6 @@ const Footer = () => {
     { name: 'Contato', href: '/contato' }
   ];
 
-  const categories = [
-    { name: 'Split Hi Wall', href: '/produtos?categoria=split' },
-    { name: 'Inverter', href: '/produtos?categoria=inverter' },
-    { name: 'Cassete', href: '/produtos?categoria=cassete' },
-    { name: 'Multi Split', href: '/produtos?categoria=multi-split' },
-    { name: 'Janela', href: '/produtos?categoria=janela' },
-    { name: 'Piso Teto', href: '/produtos?categoria=piso-teto' }
-  ];
-
   const services = [
     { name: 'Instalação', href: '/servicos#instalacao' },
     { name: 'Manutenção', href: '/servicos#manutencao' },
@@ -42,7 +33,7 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
@@ -74,23 +65,6 @@ const Footer = () => {
                     className="text-gray-400 hover:text-white transition-colors"
                   >
                     {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Products */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Produtos</h4>
-            <ul className="space-y-2">
-              {categories.map((category) => (
-                <li key={category.name}>
-                  <Link
-                    to={category.href}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    {category.name}
                   </Link>
                 </li>
               ))}
@@ -148,20 +122,9 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 Santos&Dinelli Ar Condicionado. Todos os direitos reservados.
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <Link to="/politica-privacidade" className="text-gray-400 hover:text-white transition-colors">
-                Política de Privacidade
-              </Link>
-              <Link to="/termos-uso" className="text-gray-400 hover:text-white transition-colors">
-                Termos de Uso
-              </Link>
-              <Link to="/trocas-devolucoes" className="text-gray-400 hover:text-white transition-colors">
-                Trocas e Devoluções
-              </Link>
+          <div className="text-center">
+            <div className="text-gray-400 text-sm">
+              © 2025 Santos&Dinelli Ar Condicionado. Todos os direitos reservados.
             </div>
           </div>
         </div>

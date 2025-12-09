@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Snowflake, 
@@ -13,6 +13,30 @@ import {
 } from 'lucide-react';
 
 const Home = () => {
+  const [isVisible, setIsVisible] = useState({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsVisible(prev => ({
+              ...prev,
+              [entry.target.id]: true
+            }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const categories = [
     {
       title: 'Split Hi Wall',
@@ -21,15 +45,15 @@ const Home = () => {
       btus: '9.000 a 36.000 BTUs'
     },
     {
-      title: 'Inverter',
-      description: 'Economia de até 60% na energia',
-      image: '/images/inverter.png',
-      btus: '9.000 a 30.000 BTUs'
+      title: 'Piso Teto',
+      description: 'Solução robusta para ambientes amplos',
+      image: '/images/pisoteto.png',
+      btus: '18.000 a 80.000 BTUs'
     },
     {
       title: 'Cassete',
       description: 'Perfeitos para ambientes comerciais',
-      image: '/images/cassete.jpeg',
+      image: '/images/cassete.png',
       btus: '18.000 a 60.000 BTUs'
     }
   ];
@@ -64,9 +88,9 @@ const Home = () => {
       description: 'Tecnologia Inverter com até 60% de economia'
     },
     {
-      icon: <Truck className="h-8 w-8 text-orange-600" />,
-      title: 'Entrega e Instalação',
-      description: 'Frete grátis e instalação profissional'
+      icon: <Shield className="h-8 w-8 text-orange-600" />,
+      title: 'Instalação Profissional',
+      description: 'Equipe técnica certificada e experiente'
     }
   ];
 
@@ -111,38 +135,15 @@ const Home = () => {
                   className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center"
                 >
                   Ver Produtos
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   to="/calculadora"
-                  className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center"
+                  className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105"
                 >
                   <Calculator className="mr-2 h-5 w-5" />
                   Calcular BTUs
                 </Link>
-              </div>
-            </div>
-            <div className="hidden lg:block">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-                <h3 className="text-2xl font-bold mb-4">Ofertas Especiais</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    <span>10% OFF no PIX</span>
-                  </div>
-                  <div className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    <span>Parcelamento em até 10x no Cartão de crédito</span>
-                  </div>
-                  <div className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    <span>Frete grátis para todo Brasil*</span>
-                  </div>
-                  <div className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-400 mr-3" />
-                    <span>Instalação profissional inclusa</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -162,12 +163,15 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {categories.map((category, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="aspect-w-16 aspect-h-9">
+              <div 
+                key={index} 
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="h-56 bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-6">
                   <img
                     src={category.image}
                     alt={category.title}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="p-6">
@@ -178,10 +182,10 @@ const Home = () => {
                   <p className="text-blue-600 font-semibold mb-4">{category.btus}</p>
                   <Link
                     to="/produtos"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold group"
                   >
                     Ver Produtos
-                    <ArrowRight className="ml-1 h-4 w-4" />
+                    <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-2" />
                   </Link>
                 </div>
               </div>
@@ -203,16 +207,19 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {environments.map((env, index) => (
-              <div key={index} className="relative group cursor-pointer">
-                <div className="aspect-w-16 aspect-h-12 rounded-xl overflow-hidden">
+              <div 
+                key={index} 
+                className="relative group cursor-pointer"
+              >
+                <div className="h-64 rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-white flex items-center justify-center p-4">
                   <img
                     src={env.image}
                     alt={env.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-xl font-bold mb-2">{env.title}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/70 transition-all duration-300"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform group-hover:translate-y-0">
+                    <h3 className="text-xl font-bold mb-2 transform transition-transform group-hover:scale-105">{env.title}</h3>
                     <p className="text-blue-200">{env.description}</p>
                   </div>
                 </div>
@@ -235,7 +242,10 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {features.map((feature, index) => (
-              <div key={index} className="text-center">
+              <div 
+                key={index} 
+                className="text-center"
+              >
                 <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   {feature.icon}
                 </div>
@@ -262,10 +272,16 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6">
+              <div 
+                key={index} 
+                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+              >
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    <Star 
+                      key={i} 
+                      className="h-5 w-5 text-yellow-400 fill-current transition-transform hover:scale-125" 
+                    />
                   ))}
                 </div>
                 <p className="text-gray-600 mb-4 italic">"{testimonial.comment}"</p>
@@ -282,20 +298,20 @@ const Home = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Precisa de Ajuda para Escolher?
           </h2>
-          <p className="text-xl text-blue-200 mb-8">
+          <p className="text-xl text-blue-200 mb-8 animate-fade-in-up animation-delay-200">
             Nossa equipe especializada está pronta para te atender
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
             <a
               href="https://wa.me/message/4VRYN32UABLMJ1"
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center"
+              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105 hover:shadow-2xl group"
             >
-              <Phone className="mr-2 h-5 w-5" />
+              <Phone className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
               (11) 2503-9731
             </a>
             <Link
               to="/contato"
-              className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center"
+              className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105"
             >
               Fale Conosco
             </Link>

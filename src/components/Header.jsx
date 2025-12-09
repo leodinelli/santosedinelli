@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, ShoppingCart, User, Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X, Phone, MessageCircle, Mail } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { getItemCount } = useCart();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
     { name: 'Início', href: '/' },
@@ -20,127 +29,133 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
-      {/* Top Bar */}
-      <div className="bg-blue-900 text-white py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-1" />
-                <span> (11) 2503-9731 </span>
-              </div>
-              <div className="hidden sm:flex items-center">
-                <MessageCircle className="h-4 w-4 mr-1" />
-                <a 
-                  href="https://wa.me/message/4VRYN32UABLMJ1" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="hover:text-blue-200 transition-colors"
-                >
-                  WhatsApp: (11) 2503-9731
-                </a>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="hidden sm:inline">Frete grátis para todo Brasil*</span>
-              <span className="bg-green-500 px-2 py-1 rounded text-xs font-semibold">
-                10% OFF no PIX
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <header className={`bg-white sticky top-0 z-50 transition-all duration-300 ${
+      scrolled ? 'shadow-xl' : 'shadow-lg'
+    }`}>
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              {/* Logo com Imagem */}
-              <div className="mr-3">
+            <Link to="/" className="flex items-center group">
+              <div className="mr-3 relative">
                 <img 
                   src="/icon.png" 
                   alt="Santos & Dinelli Logo" 
-                  className="h-16 w-16 object-contain rounded-lg" // ← Maior
+                  className="h-16 w-16 object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
                   onError={(e) => {
-                    
                     e.target.style.display = 'none';
                     e.target.nextElementSibling.style.display = 'flex';
                   }}
                 />
-                {/* Fallback Logo Texto */}
-                <div className="bg-blue-600 text-white p-2 rounded-lg h-12 w-12 items-center justify-center hidden">
-                  <div className="text-lg font-bold">S&D</div>
+                {/* Fallback Logo */}
+                <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-2 rounded-lg h-16 w-16 items-center justify-center hidden shadow-lg">
+                  <div className="text-xl font-bold">S&D</div>
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-blue-900">Santos & Dinelli</h1>
-                <p className="text-sm text-gray-600">Ar Condicionado & Serviços</p>
+                <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-600">
+                  Santos & Dinelli
+                </h1>
+                <p className="text-sm text-gray-600 font-medium">Ar Condicionado & Serviços</p>
               </div>
             </Link>
           </div>
 
-
-          {/* Right Icons */}
-          <div className="flex items-center space-x-4">
+          {/* Call to Action Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <a
+              href="https://wa.me/message/4VRYN32UABLMJ1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-500 hover:bg-green-600 text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center shadow-md hover:shadow-lg hover:scale-105"
+            >
+              <MessageCircle className="h-4 w-4 mr-2" />
+              Orçamento WhatsApp
+            </a>
+            <a
+              href="tel:1125039731"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center shadow-md hover:shadow-lg hover:scale-105"
+            >
+              <Phone className="h-4 w-4 mr-2" />
+              Ligar Agora
+            </a>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6 text-gray-700" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-700" />
+            )}
+          </button>
         </div>
 
         {/* Navigation - Desktop */}
-        <nav className="hidden md:block border-t border-gray-200">
+        <nav className="hidden lg:block border-t border-gray-200">
           <div className="flex space-x-8 py-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-semibold transition-all duration-300 relative group ${
                   isActive(item.href)
-                    ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
+                    ? 'text-blue-600'
                     : 'text-gray-700 hover:text-blue-600'
                 }`}
               >
                 {item.name}
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform origin-left transition-transform duration-300 ${
+                  isActive(item.href) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`}></span>
               </Link>
             ))}
           </div>
         </nav>
+      </div>
 
-        {/* Navigation - Mobile */}
-        <nav className="md:hidden border-t border-gray-200 bg-white">
-          <div className="flex py-2 px-2 justify-center">
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in-up">
+          <div className="px-4 py-4 space-y-2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`flex-shrink-0 px-3 py-2 mx-1 rounded-md text-sm font-medium transition-colors ${
+                onClick={() => setIsMenuOpen(false)}
+                className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
                   isActive(item.href)
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-blue-600 text-white shadow-md'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
-          </div>
-        </nav>
-      </div>
-
-      {/* menu do mobile fix */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
-          <div className="px-4 py-2">
-            {/* itens */}
-            <nav className="space-y-2">
-              <Link
-                to="/conta"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50"
-                onClick={() => setIsMenuOpen(false)}
+            
+            {/* Mobile CTA Buttons */}
+            <div className="pt-4 space-y-2 border-t border-gray-200">
+              <a
+                href="https://wa.me/message/4VRYN32UABLMJ1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg font-semibold text-center transition-all duration-300 flex items-center justify-center"
               >
-                Minha Conta
-              </Link>
-            </nav>
+                <MessageCircle className="h-5 w-5 mr-2" />
+                Orçamento WhatsApp
+              </a>
+              <a
+                href="tel:1125039731"
+                className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold text-center transition-all duration-300 flex items-center justify-center"
+              >
+                <Phone className="h-5 w-5 mr-2" />
+                Ligar Agora
+              </a>
+            </div>
           </div>
         </div>
       )}
