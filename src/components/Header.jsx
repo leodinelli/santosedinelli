@@ -39,18 +39,12 @@ const Header = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center group">
               <div className="mr-2 sm:mr-3 relative">
-                <img 
-                  src="/icon.png" 
-                  alt="Santos & Dinelli Logo" 
-                  className="h-12 w-12 sm:h-16 sm:w-16 object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextElementSibling.style.display = 'flex';
-                  }}
-                />
-                {/* Fallback Logo */}
-                <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-2 rounded-lg h-12 w-12 sm:h-16 sm:w-16 flex items-center justify-center hidden shadow-lg">
-                  <div className="text-lg sm:text-xl font-bold">S&D</div>
+                <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-2 rounded-lg h-12 w-12 sm:h-16 sm:w-16 flex items-center justify-center shadow-lg">
+                  <img 
+                    src="/images/icon.png" 
+                    alt="Santos & Dinelli Logo" 
+                    className="h-full w-full object-contain"
+                  />
                 </div>
               </div>
               <div>
