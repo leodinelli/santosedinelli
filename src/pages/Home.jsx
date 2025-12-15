@@ -9,7 +9,8 @@ import {
   ArrowRight,
   Star,
   CheckCircle,
-  Phone
+  Phone,
+  Wrench
 } from 'lucide-react';
 
 const Home = () => {
@@ -132,14 +133,21 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/produtos"
-                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center"
+                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center whitespace-nowrap"
                 >
                   Ver Produtos
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
+                  to="/servicos"
+                  className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105 whitespace-nowrap"
+                >
+                  <Wrench className="mr-2 h-5 w-5" />
+                  Nossos serviços
+                </Link>
+                <Link
                   to="/calculadora"
-                  className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105"
+                  className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105 whitespace-nowrap"
                 >
                   <Calculator className="mr-2 h-5 w-5" />
                   Calcular BTUs
