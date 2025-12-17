@@ -101,7 +101,7 @@ const Products = () => {
     },
     {
       icon: <Award className="h-6 w-6 text-green-600" />,
-      title: 'Instalação Profissional',
+      title: 'Instalação',
       description: 'Técnicos certificados e experientes em todas as marcas'
     },
     {
@@ -170,7 +170,9 @@ const Products = () => {
             </div>
 
             <a
-              href="https://wa.me/message/4VRYN32UABLMJ1"
+              href="https://wa.me/551125039731?text=Olá,%20tudo%20bem?%20Vim%20pelo%20site%20da%20Santos%20%26%20Dinelli%20Ar%20Condicionado%20e%20gostaria%20de%20informações%20sobre%20serviços%20e%20produtos."
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-semibold text-center transition-all duration-300 flex items-center justify-center hover:scale-105"
             >
               <MessageCircle className="h-5 w-5 mr-2" />
@@ -201,7 +203,9 @@ const Products = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-2 justify-center">
               <a
-                href="https://wa.me/message/4VRYN32UABLMJ1"
+                href="https://wa.me/551125039731?text=Olá,%20tudo%20bem?%20Vim%20pelo%20site%20da%20Santos%20%26%20Dinelli%20Ar%20Condicionado%20e%20gostaria%20de%20informações%20sobre%20serviços%20e%20produtos."
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center hover:scale-105"
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
@@ -361,7 +365,9 @@ const Products = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-2 justify-center">
             <a
-              href="https://wa.me/message/4VRYN32UABLMJ1"
+              href="https://wa.me/551125039731?text=Olá,%20tudo%20bem?%20Vim%20pelo%20site%20da%20Santos%20%26%20Dinelli%20Ar%20Condicionado%20e%20gostaria%20de%20informações%20sobre%20serviços%20e%20produtos."
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center hover:scale-105"
             >
               <MessageCircle className="mr-2 h-4 w-4" />

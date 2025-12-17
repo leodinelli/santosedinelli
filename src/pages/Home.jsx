@@ -311,7 +311,9 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
             <a
-              href="https://wa.me/message/4VRYN32UABLMJ1"
+              href="https://wa.me/551125039731?text=Olá,%20tudo%20bem?%20Vim%20pelo%20site%20da%20Santos%20%26%20Dinelli%20Ar%20Condicionado%20e%20gostaria%20de%20informações%20sobre%20serviços%20e%20produtos."
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center hover:scale-105 hover:shadow-2xl group"
             >
               <Phone className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
